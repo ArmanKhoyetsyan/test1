@@ -1,15 +1,15 @@
 const expressSession = require('express-session');
 
 const sessionExpress = () => expressSession({
-  name: "VirtualExchange",
-  secret: "asdasdasdasdasdasdasd",
-  store: store,
+  secret: "judfnjkbsdjhfgvjdfgjhasgjgj",
+  signed:true,
   saveUninitialized: false,
   resave: false,
   cookie: {
     sameSite: false,
-    maxAge: 1000,
+    maxAge: null,
     httpOnly: false,
+    secure:true,
   },
 });
 
