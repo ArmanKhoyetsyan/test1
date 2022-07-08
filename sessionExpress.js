@@ -1,15 +1,12 @@
 const expressSession = require('express-session');
 
 const sessionExpress = () => expressSession({
-  secret: "judfnjkbsdjhfgvjdfgjhasgjgj",
-  signed:true,
-  saveUninitialized: false,
-  resave: false,
+  secret: process.env.SESSION_SECRET,
+  saveUninitialized: true,
+  resave: true,
   cookie: {
-    sameSite: false,
-    maxAge: null,
+    originalMaxAge: null,
     httpOnly: false,
-    secure:true,
   },
 });
 
