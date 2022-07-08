@@ -5,9 +5,9 @@ const sessionExpress = () => expressSession({
   saveUninitialized: true,
   resave: true,
   cookie: {
-    originalMaxAge:600000
+    originalMaxAge:600000,
     httpOnly: false,
-    sameSite:'lax',
+//     sameSite:'lax',
     secure: 'auto',
   },
 });
