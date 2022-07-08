@@ -13,6 +13,7 @@ function authorizationHandler(req, res, next) {
 }
 
 function isAuthenticated(req, res, next) {
+  console.log("🚀 ~ file: middlewares.js ~ line 16 ~ isAuthenticated ~ req", req.headers)
   if (req?.headers?.cookie.includes(process.env.ADMIN_EMAIL)) next();
   else {
     res.status(401).json('Unauthorized');
