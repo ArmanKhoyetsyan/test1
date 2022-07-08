@@ -1,7 +1,7 @@
 const expressSession = require('express-session');
 
 const sessionExpress = () => expressSession({
-  secret:'sasaasdasd',
+  secret:process.env.SESSION_SECRET,
   saveUninitialized: true,
   resave: true,
   cookie: {
