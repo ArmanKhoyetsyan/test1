@@ -8,7 +8,7 @@ const sessionExpress = () => expressSession({
     originalMaxAge: null,
     httpOnly: false,
     sameSite:'none',
-    secure:'auto',
+    secure:true,
   },
 });
 
