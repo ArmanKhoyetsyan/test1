@@ -33,7 +33,7 @@ Sentry.init();
 const app = express();
 const port = process.env.PORT || 3000;
 
-const whitelist = ['http://virtual-exchange-admin.herokuapp.com', 'https://virtual-exchange-admin.herokuapp.com', "https://virtual-exchange-admin.herokuapp.com"];
+const whitelist = ['http://virtual-exchange-admin.herokuapp.com', 'https://virtual-exchange-admin.herokuapp.com'];
 
 const corsOptions = {
   credentials: true,
