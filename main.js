@@ -8,8 +8,8 @@ const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const fs = require('fs');
 const cookieParser = require('cookie-parser');
+const fs = require('fs');
 const https = require('https');
 const { FIRST_MESSAGE, SERVICES } = require('./constants');
 const { deleteFile } = require('./fileManager');
@@ -33,17 +33,15 @@ Sentry.init();
 const app = express();
 const port = process.env.PORT || 3000;
 
-const whitelist = ['http://virtual-exchange-admin.herokuapp.com', 'https://virtual-exchange-admin.herokuapp.com'];
+const whitelist = ['http://virtual-exchange-admin.herokuapp.com', 'https://virtual-exchange-admin.herokuapp.com', 'http://localhost:3001'];
 
 const corsOptions = {
-  origin: whitelist,
   credentials: true,
-  methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
-  exposedHeaders: ["set-cookie"],
+  origin: whitelist,
 };
 app.use(cors(corsOptions));
-app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(bodyParser.json());
 app.use(sessionExpress());
 app.use((req, res, next) => authorizationHandler(req, res, next));
 app.use('/user', userRouter);
@@ -51,31 +49,27 @@ app.use('/bot', botRouter);
 app.use('/auth', adminRouter);
 app.use('/sheet', sheet);
 
-// if (process.env.ENV === 'development') {
-//   app.listen(port, () => {
-//     // eslint-disable-next-line no-console
-//     console.log(`Port ${port}`);
-//   });
-// } else if (process.env.ENV === 'production') {
-//   https
-//     .createServer(
-//       {
-//         key: fs.readFileSync('./cert/key.pem'),
-//         cert: fs.readFileSync('./cert/cert.pem'),
-//         passphrase: 'virtualexchange',
-//       },
-//       app,
-//     )
-//     .listen(port, () => {
-//       //  eslint-disable-next-line no-console
-//       console.log(`Port ${port}`);
-//     });
-// }
-app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Port ${port}`);
+if (process.env.ENV === 'development') {
+  app.listen(port, () => {
+    // eslint-disable-next-line no-console
+    console.log(`Port ${port}`);
+  });
+} else if (process.env.ENV === 'production') {
+  https
+    .createServer(
+      {
+        key: fs.readFileSync('./cert/key.pem'),
+        cert: fs.readFileSync('./cert/cert.pem'),
+        passphrase: 'virtualexchange',
+      },
+      app,
+    )
+    .listen(port, () => {
+      //  eslint-disable-next-line no-console
+      console.log(`Port ${port}`);
+    });
 }
-)
+
 const { imageScene } = require('./scenes/imageScene');
 const {
   firstServiceScene,
