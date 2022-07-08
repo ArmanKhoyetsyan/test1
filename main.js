@@ -38,8 +38,6 @@ const whitelist = ['http://virtual-exchange-admin.herokuapp.com', 'https://virtu
 const corsOptions = {
   credentials: true,
   origin: whitelist,
-  exposedHeaders: ["set-cookie"],
-  methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
 };
 app.use(cors(corsOptions));
 app.use(cookieParser());
