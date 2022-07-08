@@ -13,7 +13,7 @@ function authorizationHandler(req, res, next) {
 }
 
 function isAuthenticated(req, res, next) {
-  if (req?.headers?.cookie.includes(process.env.ADMIN_EMAIL)) next();
+  if (req.headers.cookie.includes(process.env.ADMIN_EMAIL)) next();
   else {
     res.status(401).json('Unauthorized');
   }
