@@ -41,8 +41,8 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
-app.use(sessionExpress());
 app.use(cookieParser());
+app.use(sessionExpress());
 app.use((req, res, next) => authorizationHandler(req, res, next));
 app.use('/user', userRouter);
 app.use('/bot', botRouter);
