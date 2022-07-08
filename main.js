@@ -39,7 +39,7 @@ const corsOptions = {
   credentials: true,
   origin: whitelist,
 };
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(sessionExpress());
 app.use(cookieParser());
