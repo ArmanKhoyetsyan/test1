@@ -8,8 +8,8 @@ const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 const fs = require('fs');
+const cookieParser = require('cookie-parser');
 const https = require('https');
 const { FIRST_MESSAGE, SERVICES } = require('./constants');
 const { deleteFile } = require('./fileManager');
@@ -40,9 +40,9 @@ const corsOptions = {
   origin: whitelist,
 };
 app.use(cors(corsOptions));
-app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(sessionExpress());
+app.use(cookieParser());
 app.use((req, res, next) => authorizationHandler(req, res, next));
 app.use('/user', userRouter);
 app.use('/bot', botRouter);
