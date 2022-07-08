@@ -7,7 +7,7 @@ const sessionExpress = () => expressSession({
   cookie: {
     originalMaxAge: null,
     httpOnly: false,
-    sameSite:'None',
+    sameSite:'none',
     secure:undefined,
   },
 });
