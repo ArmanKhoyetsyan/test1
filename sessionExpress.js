@@ -6,7 +6,7 @@ const sessionExpress = () => expressSession({
   resave: true,
   cookie: {
     httpOnly: false,
-    sameSite:'none',
+    sameSite:'strict',
     secure: 'auto',
   },
 });
