@@ -72,10 +72,11 @@ app.use('/sheet', sheet);
 //     });
 // }
 
-  app.listen(port, () => {
-    // eslint-disable-next-line no-console
-    console.log(`Port ${port}`);
-    
+app.listen(port, () => {
+  // eslint-disable-next-line no-console
+  console.log(`Port ${port}`);
+})
+
 const { imageScene } = require('./scenes/imageScene');
 const {
   firstServiceScene,
