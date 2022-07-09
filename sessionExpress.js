@@ -9,7 +9,7 @@ const sessionExpress = () => expressSession({
     httpOnly: false,
     sameSite:'none',
     signed:true,
-    secure:true,
+    secure:false,
   },
 });
 module.exports = { sessionExpress };
