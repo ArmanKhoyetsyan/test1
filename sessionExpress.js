@@ -11,5 +11,4 @@ const sessionExpress = () => expressSession({
     // signed:true,
   },
 });
-
 module.exports = { sessionExpress };
