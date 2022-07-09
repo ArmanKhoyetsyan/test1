@@ -49,30 +49,30 @@ app.use('/bot', botRouter);
 app.use('/auth', adminRouter);
 app.use('/sheet', sheet);
 
-if (process.env.ENV === 'development') {
-  app.listen(port, () => {
-    // eslint-disable-next-line no-console
-    console.log(`Port ${port}`);
-  });
-} else if (process.env.ENV === 'production') {
-  https
-    .createServer(
-      {
-        key: fs.readFileSync('./cert/key.pem'),
-        cert: fs.readFileSync('./cert/cert.pem'),
-      },
-      app,
-    )
-    .listen(port, () => {
-      //  eslint-disable-next-line no-console
-      console.log(`Port ${port}`);
-    });
-}
+// if (process.env.ENV === 'development') {
+//   app.listen(port, () => {
+//     // eslint-disable-next-line no-console
+//     console.log(`Port ${port}`);
+//   });
+// } else if (process.env.ENV === 'production') {
+//   https
+//     .createServer(
+//       {
+//         key: fs.readFileSync('./cert/key.pem'),
+//         cert: fs.readFileSync('./cert/cert.pem'),
+//       },
+//       app,
+//     )
+//     .listen(port, () => {
+//       //  eslint-disable-next-line no-console
+//       console.log(`Port ${port}`);
+//     });
+// }
 
-// app.listen(port, () => {
-//   // eslint-disable-next-line no-console
-//   console.log(`Port ${port}`);
-// })
+app.listen(port, () => {
+  // eslint-disable-next-line no-console
+  console.log(`Port ${port}`);
+})
 
 const { imageScene } = require('./scenes/imageScene');
 const {
