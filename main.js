@@ -39,7 +39,6 @@ const corsOptions = {
   credentials: true,
   origin: whitelist,
   methods:['*'],
-  allowedHeaders:["Content-Type","Set-Cookie"],
 };
 app.use(cors(corsOptions));
 app.use(cookieParser());
