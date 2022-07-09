@@ -60,7 +60,6 @@ if (process.env.ENV === 'development') {
       {
         key: fs.readFileSync('./cert/key.pem'),
         cert: fs.readFileSync('./cert/cert.pem'),
-        passphrase: '1111',
       },
       app,
     )
