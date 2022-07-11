@@ -36,7 +36,7 @@ const port = process.env.PORT || 3000;
 const whitelist = ['http://virtual-exchange-admin.herokuapp.com', 'https://virtual-exchange-admin.herokuapp.com'];
 
 const corsOptions = {
-  credentials:'include',
+  credentials:true,
   origin: whitelist,
   exposedHeaders: ["set-cookie"],
 };
