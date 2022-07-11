@@ -31,7 +31,7 @@ require('dotenv').config({ path: `envs/.env.${process.env.ENV}` });
 Sentry.init();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 const whitelist = ['http://virtual-exchange-admin.herokuapp.com', 'https://virtual-exchange-admin.herokuapp.com'];
 
