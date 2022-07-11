@@ -54,7 +54,9 @@ step2.on('text', async (ctx) => {
       ctx.wizard.next();
     }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });
@@ -63,7 +65,9 @@ step2.on('photo', async (ctx) => {
   try {
     savePhoto(ctx);
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   if (ctx.wizard.state.step2Photo) {
     ctx.wizard.state.step2Photo = false;
@@ -100,7 +104,9 @@ step3.on('text', async (ctx) => {
       return;
     }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   ctx.wizard.next();
 });
@@ -111,7 +117,9 @@ step4.on('photo', async (ctx) => {
   try {
     savePhoto(ctx);
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   if (ctx.wizard.state.step4Photo) {
     ctx.wizard.state.step4Photo = false;
@@ -144,7 +152,9 @@ step5.on('text', async (ctx) => {
       return;
     }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   ctx.wizard.next();
 });

@@ -12,6 +12,8 @@ const { setStepPath } = require('../../common/setStepPath');
 const { seventhAnswer } = require('../../constants/elevenAnswer');
 const { handleCommentScene } = require('../handle-comment-scene');
 const Sentry = require('../../utils/sentry');
+const { userData } = require('../../common/data');
+const { deleteChecks } = require('../../utils/helper');
 
 const step1 = async (ctx) => {
   await ctx.replyWithHTML(seventhAnswer);
@@ -24,8 +26,11 @@ const step2 = new Composer();
 step2.on('text', async (ctx) => {
   try {
     const number = checkText(ctx);
+    const userId = ctx.message.from.id;
+
     if (number && number <= 1) {
       setStepPath(ctx, number);
+      userData[userId].imagesNameArray = deleteChecks(ctx);
       ctx.scene.enter('humanChat');
     } else if (ctx.message.text === '/start') {
       restartBot(ctx);
@@ -41,7 +46,9 @@ step2.on('text', async (ctx) => {
     }
     ctx.wizard.state.nombre = ctx.message.text;
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });
@@ -51,8 +58,11 @@ const step3 = new Composer();
 step3.on('text', async (ctx) => {
   try {
     const number = checkText(ctx);
+    const userId = ctx.message.from.id;
+
     if (number && number <= 1) {
       setStepPath(ctx, number);
+      userData[userId].imagesNameArray = deleteChecks(ctx);
       ctx.scene.enter('humanChat');
     } else if (ctx.message.text === '/start') {
       restartBot(ctx);
@@ -68,7 +78,9 @@ step3.on('text', async (ctx) => {
     }
     ctx.wizard.state.nombre_del_titular_de_la_cuenta = ctx.message.text;
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });
@@ -78,8 +90,11 @@ const step4 = new Composer();
 step4.on('text', async (ctx) => {
   try {
     const number = checkText(ctx);
+    const userId = ctx.message.from.id;
+
     if (number && number <= 1) {
       setStepPath(ctx, number);
+      userData[userId].imagesNameArray = deleteChecks(ctx);
       ctx.scene.enter('humanChat');
     } else if (ctx.message.text === '/start') {
       restartBot(ctx);
@@ -95,7 +110,9 @@ step4.on('text', async (ctx) => {
     }
     ctx.wizard.state.numero_de_cuenta = ctx.message.text;
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });
@@ -105,8 +122,11 @@ const step5 = new Composer();
 step5.on('text', async (ctx) => {
   try {
     const number = checkText(ctx);
+    const userId = ctx.message.from.id;
+
     if (number && number <= 1) {
       setStepPath(ctx, number);
+      userData[userId].imagesNameArray = deleteChecks(ctx);
       ctx.scene.enter('humanChat');
     } else if (ctx.message.text === '/start') {
       restartBot(ctx);
@@ -122,7 +142,9 @@ step5.on('text', async (ctx) => {
     }
     ctx.wizard.state.cbu = ctx.message.text;
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });
@@ -132,8 +154,11 @@ const step6 = new Composer();
 step6.on('text', async (ctx) => {
   try {
     const number = checkText(ctx);
+    const userId = ctx.message.from.id;
+
     if (number && number <= 1) {
       setStepPath(ctx, number);
+      userData[userId].imagesNameArray = deleteChecks(ctx);
       ctx.scene.enter('humanChat');
     } else if (ctx.message.text === '/start') {
       restartBot(ctx);
@@ -149,7 +174,9 @@ step6.on('text', async (ctx) => {
     }
     ctx.wizard.state.alias = ctx.message.text;
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });
@@ -173,7 +200,9 @@ step7.on('text', async (ctx) => {
       ctx.wizard.next();
     }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });

@@ -11,6 +11,7 @@ const { restartBot } = require('../../common/restartBot');
 const { setStepPath } = require('../../common/setStepPath');
 const { handleCommentScene } = require('../handle-comment-scene');
 const Sentry = require('../../utils/sentry');
+const { userData } = require('../../common/data');
 
 const step1 = async (ctx) => {
   await ctx.replyWithHTML('<b>Nombre de la plataforma:</b>');
@@ -39,7 +40,9 @@ step2.on('text', async (ctx) => {
     }
     ctx.wizard.state.nombre_plataforma = ctx.message.text;
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });
@@ -66,7 +69,9 @@ step3.on('text', async (ctx) => {
     }
     ctx.wizard.state.nombre = ctx.message.text;
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });
@@ -93,7 +98,9 @@ step4.on('text', async (ctx) => {
     }
     ctx.wizard.state.dni = ctx.message.text;
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });
@@ -120,7 +127,9 @@ step5.on('text', async (ctx) => {
     }
     ctx.wizard.state.cvu = ctx.message.text;
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });
@@ -147,7 +156,9 @@ step6.on('text', async (ctx) => {
     }
     ctx.wizard.state.alias = ctx.message.text;
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });
@@ -170,7 +181,9 @@ step7.on('text', async (ctx) => {
       ctx.wizard.next();
     }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });

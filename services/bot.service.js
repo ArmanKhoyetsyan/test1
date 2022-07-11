@@ -11,6 +11,8 @@ const sendTelegramMsg = async (id, financeInfos) => {
     try {
       await bot.telegram.sendMessage(id, financeInfos, { parse_mode: 'HTML' });
     } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
       Sentry.logError(' Error: SEND NOTIFY ', error.message);
     }
   }

@@ -52,6 +52,8 @@ const deletePhotos = (imagesNameArray, userId) => {
     imagesNameArray.forEach((name) => {
       const filePath = path.resolve(__dirname, '../images', name);
       fs.unlink(filePath, (err) => {
+        // eslint-disable-next-line no-console
+        console.log(err);
         Sentry.logError(err);
       });
     });
@@ -73,6 +75,8 @@ const sendMailMessage = (subject, text, userId, callback) => {
         mailOptions(subject, text, imagesNameArray),
         async (err) => {
           if (err) {
+            // eslint-disable-next-line no-console
+            console.log(err);
             Sentry.logError(err);
           } else {
             const blueDollar = await getCourseOfBlueDollar();
@@ -85,13 +89,14 @@ const sendMailMessage = (subject, text, userId, callback) => {
               [
                 dataForSheet,
                 userData[userId]?.sumInCheck,
+                userData[userId]?.checkNumber,
                 username,
                 percent / 100,
                 userData[userId]?.link !== '1' ? userData[userId]?.link : paymentService,
-                `=B${lastRow.length + 1}*D${lastRow.length + 1}`,
-                `=B${lastRow.length + 1}*(1-D${lastRow.length + 1})`,
+                `=B${lastRow.length + 1}*E${lastRow.length + 1}`,
+                `=B${lastRow.length + 1}*(1-E${lastRow.length + 1})`,
                 blueDollar,
-                `=G${lastRow.length + 1}*H${lastRow.length + 1}`,
+                `=H${lastRow.length + 1}*I${lastRow.length + 1}`,
                 userData[userId]?.paymentMethod,
                 '',
                 '',
@@ -101,7 +106,7 @@ const sendMailMessage = (subject, text, userId, callback) => {
             );
             const sheetTitle = formatDateForDailySheet();
             const dataInSheet = await getSpreadsheetColumn(sheetTitle, '!B:B');
-            await updateValues(sheetTitle, `U${dataInSheet[0].length}`, [[userData?.[userId]?.checkNumber]]);
+            await updateValues(sheetTitle, `E${dataInSheet[0].length}`, [[userData?.[userId]?.checkNumber]]);
             // eslint-disable-next-line no-console
             console.log('Mail info: Success');
             deletePhotos(imagesNameArray, userId);
@@ -110,6 +115,8 @@ const sendMailMessage = (subject, text, userId, callback) => {
       );
     }
   } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
     Sentry.logError(error);
   }
 };

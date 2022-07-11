@@ -16,6 +16,7 @@ const {
 } = require('../constants/seventhAnswer');
 const { redirect } = require('../common/firstListenerRedirect');
 const { setStepPath } = require('../common/setStepPath');
+const { userData } = require('../common/data');
 
 const step1 = async (ctx) => {
   ctx.replyWithHTML(firstAnswer);
@@ -43,7 +44,9 @@ step2.on('text', async (ctx) => {
       ctx.wizard.next();
     }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });

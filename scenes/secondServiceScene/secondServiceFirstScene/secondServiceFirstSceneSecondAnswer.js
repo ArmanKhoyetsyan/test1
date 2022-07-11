@@ -57,14 +57,16 @@ step2.on('photo', async (ctx) => {
   try {
     await savePhoto(ctx);
     ctx.wizard.state.photoCount += 1;
+    if (ctx.wizard.state.photoListener) {
+      ctx.wizard.state.photoListener = false;
+      ctx.wizard.state.dontShow = 'don`t show';
+      await ctx.replyWithHTML(CONFIRM_MSG_PHOTO);
+      ctx.wizard.next();
+    }
   } catch (err) {
-    Sentry.logError(err);
-  }
-  if (ctx.wizard.state.photoListener) {
-    ctx.wizard.state.photoListener = false;
-    ctx.wizard.state.dontShow = 'don`t show';
-    await ctx.replyWithHTML(CONFIRM_MSG_PHOTO);
-    ctx.wizard.next();
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
 });
 
@@ -87,7 +89,9 @@ step2.on('text', async (ctx) => {
       userData[userId].link = ctx.message.text;
     }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });
@@ -128,7 +132,9 @@ step3.on('text', async (ctx) => {
       }
     }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });

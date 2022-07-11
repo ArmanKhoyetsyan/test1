@@ -8,6 +8,7 @@ const { redirect } = require('../common/firstListenerRedirect');
 const { restartBot } = require('../common/restartBot');
 const { setStepPath } = require('../common/setStepPath');
 const Sentry = require('../utils/sentry');
+const { userData } = require('../common/data');
 
 const step1 = (ctx) => {
   ctx.replyWithHTML(twelveService);
@@ -27,7 +28,9 @@ step2.on('text', async (ctx) => {
       redirect(ctx, number, SERVICES);
     }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
 });
 

@@ -1,3 +1,6 @@
+const path = require('path');
+const { userData } = require('../common/data');
+const { deleteFile } = require('../fileManager');
 const { MONTHS_ES } = require('./constants');
 
 function getMonth() {
@@ -60,6 +63,14 @@ const formatDateForDailySheet = () => {
 
 const replaceAll = (str, match, replacement) => str.split(match).join(replacement);
 
+function deleteChecks(ctx) {
+  const userId = ctx.message.from.id;
+  userData[userId]?.imagesNameArray.forEach((el) => {
+    deleteFile(path.resolve(__dirname, '../images', el));
+  });
+  return [];
+}
+
 module.exports = {
   getMonth,
   getCurrentMonth,
@@ -68,4 +79,5 @@ module.exports = {
   formatDateForDailySheet,
   replaceAll,
   getPreviousMonth,
+  deleteChecks,
 };

@@ -42,7 +42,9 @@ step2.on('photo', async (ctx) => {
     ctx.wizard.state.fileUrl = fileUrl;
     ctx.wizard.state.filPath = path.resolve(__dirname, '../images', imageName);
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   if (ctx.wizard.state.step2Photo) {
     ctx.wizard.state.step2Photo = false;
@@ -90,7 +92,9 @@ step3.on('text', async (ctx) => {
       ctx.scene.reenter();
     }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
 
   const currentStepIndex = ctx.wizard.cursor;

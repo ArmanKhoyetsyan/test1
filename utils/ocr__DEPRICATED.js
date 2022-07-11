@@ -52,6 +52,8 @@ function extractTextByApi(fileName, ctx) {
         userData[userId].checkNameSurname = text[indexOf + 1].LineText;
       })
       .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log(error);
         Sentry.logError(error);
       });
   });

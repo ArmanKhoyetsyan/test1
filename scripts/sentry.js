@@ -17,15 +17,30 @@ const init = () => {
 };
 
 const logWarning = (msg) => {
+  if (typeof msg === 'string') {
+    Sentry.captureException(new Error(msg, 'warning'));
+    return '';
+  }
   Sentry.captureMessage(msg, 'warning');
+  return '';
 };
 
 const logError = (error) => {
+  if (typeof error === 'string') {
+    Sentry.captureException(new Error(error));
+    return '';
+  }
   Sentry.captureException(error);
+  return '';
 };
 
 const logInfo = (info) => {
+  if (typeof info === 'string') {
+    Sentry.captureException(new Error(info));
+    return '';
+  }
   Sentry.captureMessage(info);
+  return '';
 };
 
 module.exports = {

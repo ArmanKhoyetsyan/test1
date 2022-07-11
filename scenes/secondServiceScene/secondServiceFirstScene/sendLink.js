@@ -70,13 +70,25 @@ step2.on('photo', async (ctx) => {
   try {
     savePhoto(ctx);
     ctx.wizard.state.photoCount += 1;
+    if (ctx.wizard.state.photoListener) {
+      ctx.wizard.state.photoListener = false;
+      await ctx.replyWithHTML(CONFIRM_MSG_PHOTO);
+      ctx.wizard.next();
+    }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
-  if (ctx.wizard.state.photoListener) {
-    ctx.wizard.state.photoListener = false;
-    await ctx.replyWithHTML(CONFIRM_MSG_PHOTO);
-    ctx.wizard.next();
+});
+
+//  ***  This is necessary so that the user does not accidentally  ***
+//  ***  press a number or symbol and the scene starts over.  ***
+//  ***  Now if the user types something other than START, the scene will not be interrupted.  ***
+step2.on('text', async (ctx) => {
+  if (ctx.message.text === '/start') {
+    restartBot(ctx);
+    ctx.scene.leave();
   }
 });
 
@@ -111,7 +123,9 @@ step3.on('text', async (ctx) => {
       return ctx.scene.reenter();
     }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });
@@ -122,13 +136,25 @@ step4.on('photo', async (ctx) => {
   try {
     await savePhoto(ctx, extractTextByVision);
     ctx.wizard.state.photoCount += 1;
+    if (ctx.wizard.state.photoListener) {
+      ctx.wizard.state.photoListener = false;
+      await ctx.replyWithHTML(CONFIRM_MSG_PHOTO);
+      ctx.wizard.next();
+    }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
-  if (ctx.wizard.state.photoListener) {
-    ctx.wizard.state.photoListener = false;
-    await ctx.replyWithHTML(CONFIRM_MSG_PHOTO);
-    ctx.wizard.next();
+});
+
+//  ***  This is necessary so that the user does not accidentally  ***
+//  ***  press a number or symbol and the scene starts over.  ***
+//  ***  Now if the user types something other than START, the scene will not be interrupted.  ***
+step4.on('text', async (ctx) => {
+  if (ctx.message.text === '/start') {
+    restartBot(ctx);
+    ctx.scene.leave();
   }
 });
 
@@ -164,7 +190,9 @@ step5.on('text', async (ctx) => {
       return ctx.wizard.back();
     }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });
@@ -175,13 +203,25 @@ step6.on('photo', async (ctx) => {
   try {
     savePhoto(ctx);
     ctx.wizard.state.photoCount += 1;
+    if (ctx.wizard.state.photoListener) {
+      ctx.wizard.state.photoListener = false;
+      await ctx.replyWithHTML(CONFIRM_MSG_PHOTO);
+      ctx.wizard.next();
+    }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
-  if (ctx.wizard.state.photoListener) {
-    ctx.wizard.state.photoListener = false;
-    await ctx.replyWithHTML(CONFIRM_MSG_PHOTO);
-    ctx.wizard.next();
+});
+
+//  ***  This is necessary so that the user does not accidentally  ***
+//  ***  press a number or symbol and the scene starts over.  ***
+//  ***  Now if the user types something other than START, the scene will not be interrupted.  ***
+step6.on('text', async (ctx) => {
+  if (ctx.message.text === '/start') {
+    restartBot(ctx);
+    ctx.scene.leave();
   }
 });
 
@@ -219,7 +259,9 @@ step7.on('text', async (ctx) => {
       return ctx.wizard.back();
     }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });
@@ -237,7 +279,9 @@ step8.on('text', async (ctx) => {
     await ctx.replyWithHTML(CONFIRM_MSG);
     ctx.wizard.next();
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });
@@ -260,7 +304,9 @@ step9.on('text', async (ctx) => {
       return ctx.wizard.back();
     }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });

@@ -11,7 +11,7 @@ function getMonth() {
 
 // eslint-disable-next-line no-new
 new CronJob(
-  // *** At 09:00 on the 30th except February. ***
+  // *** At 09:00 on the 30th. ***
 
   '0 09 30 * *',
   (() => {

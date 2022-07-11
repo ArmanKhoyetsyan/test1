@@ -17,7 +17,9 @@ const notifyUsers = async (req, res) => {
       res.status(400).json({ msg: "Sheet doesn't exist" });
     }
   } catch (error) {
-    Sentry.logError(' Error: SEND NOTIFY ', error.message);
+    Sentry.logError(new Error(` Error: SEND NOTIFY ,  error ${error.message}`));
+    // eslint-disable-next-line no-console
+    console.log(error);
     res.status(400).json({ msg: error.message });
   }
   return '';

@@ -24,6 +24,8 @@ function createMonthlySheet() {
     }
   })
     .catch((err) => {
+      // eslint-disable-next-line no-console
+      console.log(err);
       Sentry.logError(err);
     });
 }
@@ -41,6 +43,8 @@ function updateRate() {
       }
     })
     .catch((err) => {
+      // eslint-disable-next-line no-console
+      console.log(err);
       Sentry.logError(err);
     });
 }

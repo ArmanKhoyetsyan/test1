@@ -45,7 +45,7 @@ async function gatSheetIDByName(sheetName) {
     const res = await googleSheets.spreadsheets.get(request);
     return Number(res?.data?.sheets?.[0]?.properties?.sheetId);
   } catch (error) {
-    Sentry.logError('Error get sheetId', error);
+    Sentry.logError(`Error get sheetId ${error}`);
   }
   return '';
 }
@@ -79,6 +79,8 @@ async function clearSheet(sheetName, startRowIndex = 0) {
     // eslint-disable-next-line no-console
     console.log(JSON.stringify(response, null, 2));
   } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err);
     Sentry.logError(err);
   }
 }
@@ -124,6 +126,8 @@ async function copySheet(sheetId) {
       .data;
     return response;
   } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err);
     Sentry.logError(err);
   }
   return '';
@@ -142,9 +146,13 @@ function batchUpdate(sheets, request) {
   return new Promise((res, rej) => {
     sheets.spreadsheets.batchUpdate(request, (err) => {
       if (err) {
+        // eslint-disable-next-line no-console
+        console.log(err);
         Sentry.logError(err);
         rej(err);
       } else {
+        // eslint-disable-next-line no-console
+        console.log('Created sheet.');
         Sentry.logError('Created sheet.');
         res();
       }
@@ -161,6 +169,8 @@ async function copySheetAndRename(sheetName, newSheetName) {
       await renameSheet(newSheetNameID, newSheetName);
     }
   } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
     Sentry.logError(error);
   }
 }
@@ -177,6 +187,8 @@ async function createMonthlySheet(sheetTitle) {
     await clearSheet(sheetTitle, 2);
     return true;
   } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
     Sentry.logError(error);
   }
   return '';

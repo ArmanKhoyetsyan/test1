@@ -51,7 +51,9 @@ const savePhoto = async (ctx, extractTextByVision = () => {}) => {
     createPhoto(botToken, imagePath, imageName, extractTextByVision, ctx);
     return imageName;
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 };

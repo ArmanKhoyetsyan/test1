@@ -12,6 +12,7 @@ const checkText = require('../../common/checkText');
 const { redirect } = require('../../common/firstListenerRedirect');
 const { restartBot } = require('../../common/restartBot');
 const Sentry = require('../../utils/sentry');
+const { userData } = require('../../common/data');
 
 const step1 = (ctx) => {
   ctx.replyWithHTML(fourthAnswer);
@@ -46,7 +47,9 @@ step2.on('text', (ctx) => {
       ctx.wizard.next();
     }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });

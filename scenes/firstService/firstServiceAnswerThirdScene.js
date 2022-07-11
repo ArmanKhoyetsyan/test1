@@ -11,6 +11,7 @@ const {
   calculator,
 } = require('../../common/calculator');
 const Sentry = require('../../utils/sentry');
+const { userData } = require('../../common/data');
 
 const step1 = async (ctx) => {
   let text = '';
@@ -49,7 +50,9 @@ step2.on('text', async (ctx) => {
     }
     await '';
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
 });
 
@@ -79,7 +82,9 @@ step3.on('text', async (ctx) => {
       );
     }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
 });
 

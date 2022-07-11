@@ -11,6 +11,8 @@ const createMonthlySheet = async (req, res) => {
       res.status(400).json({ msg: 'Sheet is exist' });
     }
   } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
     Sentry.logError(error);
   }
 };
@@ -29,6 +31,8 @@ const createDailySheet = async (req, res) => {
     }
   } catch (error) {
     res.status(400).json({ msg: error.message });
+    // eslint-disable-next-line no-console
+    console.log(error);
     Sentry.logError(error);
   }
 };
@@ -50,6 +54,8 @@ const updateRateInDailySheet = async (req, res) => {
     res.status(200).json({ msg: `Course is updated in ${courseOfBlueDollar}` });
   } catch (error) {
     res.status(400).json({ msg: error.message });
+    // eslint-disable-next-line no-console
+    console.log(error);
     Sentry.logError(error);
   }
 };

@@ -39,12 +39,14 @@ step2.on('text', (ctx) => {
     } else if (ctx.message.text === '/start') {
       restartBot(ctx);
       ctx.scene.leave();
-    } else {
+    } else if (ctx.message.text === '0') {
       setStepPath(ctx, '0');
       return ctx.scene.enter('firstServiceScene');
     }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });
@@ -53,7 +55,9 @@ step2.on('photo', async (ctx) => {
   try {
     savePhoto(ctx);
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   if (ctx.wizard.state.step2Photo) {
     ctx.wizard.state.step2Photo = false;
@@ -76,7 +80,7 @@ step3.on('text', async (ctx) => {
     } if (ctx.message.text === '/start') {
       restartBot(ctx);
       ctx.scene.leave();
-    } else {
+    } else if (ctx.message.text === '0') {
       setStepPath(ctx, '0');
       userData[userId]?.imagesNameArray?.forEach((e) => {
         deleteFile(path.resolve(__dirname, '../../images', e));
@@ -87,9 +91,10 @@ step3.on('text', async (ctx) => {
       return;
     }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
-  ctx.wizard.next();
 });
 
 const firstServiceAnswerTwoScene = new WizardScene(

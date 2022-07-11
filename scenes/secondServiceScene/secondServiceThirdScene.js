@@ -16,6 +16,7 @@ const {
 } = require('../../constants/secondAnswer/thirdAnswer');
 
 const checkText = require('../../common/checkText');
+const { userData } = require('../../common/data');
 
 const step1 = (ctx) => {
   ctx.replyWithHTML(secondServiceThird);
@@ -97,7 +98,9 @@ step2.on('text', (ctx) => {
       return ctx.scene.reenter();
     }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });
@@ -142,7 +145,9 @@ step3.on('text', (ctx) => {
       return ctx.scene.reenter();
     }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
   return '';
 });

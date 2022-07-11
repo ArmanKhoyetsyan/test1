@@ -9,8 +9,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const fs = require('fs');
-const https = require('https');
+// const fs = require('fs');
+// const https = require('https');
 const { FIRST_MESSAGE, SERVICES } = require('./constants');
 const { deleteFile } = require('./fileManager');
 const { createUser } = require('./common/databaseCommands');
@@ -38,7 +38,6 @@ const whitelist = ['http://virtual-exchange-admin.herokuapp.com', 'https://virtu
 const corsOptions = {
   credentials: true,
   origin: whitelist,
-  methods:['*'],
 };
 app.use(cors(corsOptions));
 app.use(cookieParser());
@@ -61,6 +60,7 @@ app.use('/sheet', sheet);
 //       {
 //         key: fs.readFileSync('./cert/key.pem'),
 //         cert: fs.readFileSync('./cert/cert.pem'),
+//         passphrase: 'virtualexchange',
 //       },
 //       app,
 //     )
@@ -69,11 +69,10 @@ app.use('/sheet', sheet);
 //       console.log(`Port ${port}`);
 //     });
 // }
-
 app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`Port ${port}`);
-})
+});
 
 const { imageScene } = require('./scenes/imageScene');
 const {
@@ -280,10 +279,13 @@ bot.start(async (ctx) => {
       return;
     }
     createUserDataUserCtx(ctx);
+
     await ctx.reply(FIRST_MESSAGE);
     await ctx.replyWithHTML(SERVICES);
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
 });
 
@@ -321,7 +323,9 @@ bot.on('text', async (ctx) => {
       await ctx.replyWithHTML(SERVICES);
     }
   } catch (err) {
-    Sentry.logError(err);
+    // eslint-disable-next-line no-console
+    console.log(`${JSON.stringify(userData[ctx.message.from.id])},  error `, err);
+    Sentry.logError(new Error(`${JSON.stringify(userData[ctx.message.from.id])},  error ${err.message}`));
   }
 });
 
